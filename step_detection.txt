@@ -1,0 +1,33 @@
+//保存至 /home/amov/Desktop/basic/damage_detect_ws
+
+
+打开地面站
+打开wsl --> 显示"无法读取温度文件"
+打开场景
+
+地面站连接
+
+显示WP
+
+win+r打开第二个wsl，输入：
+
+cd /home/amov/Desktop/basic/damage_detect_ws
+./run_full_system.sh
+
+//--
+查看图像话题:
+  rostopic hz /airsim_node/uav1/front_left/Scene
+
+查看检测结果:
+  nc -u -l 8891
+
+查看节点状态:
+  rosnode list
+--//
+
+
+
+
+打开uav_receiver.py,输入1，进入正常接收UAV数据模式
+
+
