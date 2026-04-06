@@ -1,0 +1,37 @@
+# 检测参数
+model_path: "/home/amov/Prometheus/Modules/tutorial_demo/basic/damage_detect_ws/src/damage_detect/models/best.pt"
+conf_threshold: 0.3
+
+# 时间窗口参数
+window_duration: 0.5
+vote_threshold: 2
+cluster_distance: 1.5
+
+# 相机参数
+image_width: 640
+image_height: 480
+fov_degrees: 80.0
+road_z: 0.0
+
+# 相机偏移
+camera_offset_x: -0.55
+camera_offset_y: 0.0475
+camera_offset_z: -0.1
+camera_pitch: 0
+camera_roll: 0
+camera_yaw: 0
+
+# ROS话题
+image_topic: "/airsim_node/uav1/front_left/Scene"
+pose_file: "/home/amov/Prometheus/Modules/tutorial_demo/basic/damage_detect_ws/src/damage_detect/data/airsim_rec.txt"
+
+# 输出格式
+output_format: "MsgType:1 DamageType:{} D_x:{:.3f} D_y:{:.3f} D_z:{:.3f}"
+
+# 病害类型映射
+defect_types:
+  0: "横向裂缝"
+  1: "纵向裂缝"
+  2: "龟裂"
+  3: "坑槽"
+  4: "裂缝"

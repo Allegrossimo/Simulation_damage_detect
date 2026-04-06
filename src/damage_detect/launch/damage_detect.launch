@@ -1,0 +1,45 @@
+<launch>
+    <!-- 定义参数，start_airsim默认为false，不启动AirSim -->
+    <arg name="start_airsim" default="false"/>
+    <arg name="airsim_host" default="127.0.0.1"/>
+    
+    <!-- 可选：启动AirSim节点 -->
+    <include file="$(find airsim_ros_pkgs)/launch/airsim_node.launch" if="$(arg start_airsim)">
+        <arg name="output" value="screen"/>
+        <arg name="host" value="$(arg airsim_host)"/>
+    </include>
+    
+    <!-- 启动采集节点 -->
+    <node pkg="damage_detect" type="airsim_recorder_node" 
+          name="airsim_recorder" output="screen">
+        <param name="output_path" value="/tmp/damage_detect"/>
+        <param name="vehicle_name" value="uav1"/>
+        <param name="windows_ip" value="26.223.207.36"/>
+        <param name="windows_port" value="8891"/>
+        <param name="display_enabled" value="true"/>
+    </node>
+    
+    <!-- 启动检测节点 -->
+    <node pkg="damage_detect" type="defect_detector_node.py" 
+          name="defect_detector" output="screen">
+        <param name="model_path" value="$(find damage_detect)/models/best.pt"/>
+        <param name="conf_threshold" value="0.3"/>
+        <param name="window_duration" value="0.5"/>
+        <param name="frames_per_window" value="3"/>
+        <param name="vote_threshold" value="2"/>
+        <param name="cluster_distance" value="1.5"/>
+        <param name="image_topic" value="/airsim_node/uav1/front_left/Scene"/>
+        <param name="pose_file" value="/tmp/damage_detect/airsim_rec.txt"/>
+        <param name="windows_ip" value="26.223.207.36"/>
+        <param name="windows_port" value="8891"/>
+        <param name="image_width" value="640"/>
+        <param name="image_height" value="480"/>
+        <param name="fov_degrees" value="80.0"/>
+        <param name="camera_offset_x" value="0.55"/>
+        <param name="camera_offset_y" value="-0.0475"/>
+        <param name="camera_offset_z" value="0.0"/>
+        <param name="road_z" value="0.0"/>
+    </node>
+</launch>
+
+
